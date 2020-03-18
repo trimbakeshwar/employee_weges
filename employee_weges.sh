@@ -11,8 +11,9 @@ case $attendance in
 	echo "0" ;;
 esac
 }
-result="$( check_attendance $(()) )"
+#result="$( check_attendance $(()) )"
 function check_daily_weges(){
+result="$( check_attendance $(()) )"
 case $result in 
 1)
 	total_weges=$((20*8))
@@ -20,8 +21,19 @@ case $result in
 2)
 	total_weges=$((20*4))
 	echo $total_weges ;;
-0)
-	echo "employee is absent" ;;
 esac
 }
-check_daily_weges
+#result="$( check_daily_weges $(()) )"
+function calculate_weges_for_month(){
+count=0
+total_sal=1
+while [ $count -le 20 ]
+do
+	result="$( check_daily_weges $(()) )"
+	total_sal=$(( $total_sal + result ))
+	((count++))
+	
+done
+	echo "$total_sal"
+}
+calculate_weges_for_month
