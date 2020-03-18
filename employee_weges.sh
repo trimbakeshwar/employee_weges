@@ -2,29 +2,26 @@
 echo "welcome to the employee weges"
 function check_attendance(){
 attendance=$((RANDOM%3))
-if [ $attendance -eq 1 ]
-then
-	echo "1"
-elif [ $attendance -eq 2 ]
-then
-	echo "2"
-else
-	echo "0"
-fi
+case $attendance in
+1)
+	echo "1" ;;
+2)
+	echo "2" ;;
+0)
+	echo "0" ;;
+esac
 }
 result="$( check_attendance $(()) )"
 function check_daily_weges(){
-
-if [ $result -eq 1 ]
-then
+case $result in 
+1)
 	total_weges=$((20*8))
-	echo $total_weges
-elif [ $result -eq 2 ]
-then
+	echo $total_weges ;;
+2)
 	total_weges=$((20*4))
-	echo $total_weges
-else
-	echo "employee is absent"
-fi
+	echo $total_weges ;;
+0)
+	echo "employee is absent" ;;
+esac
 }
 check_daily_weges
