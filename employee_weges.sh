@@ -1,38 +1,50 @@
 #!/bin/bash -x
 echo "welcome to the employee weges"
 function check_attendance(){
-attendance=$((RANDOM%3))
+attendance=$((RANDOM%2))
 case $attendance in
 1)
 	echo "1" ;;
-2)
-	echo "2" ;;
+
 0)
 	echo "0" ;;
 esac
 }
-#result="$( check_attendance $(()) )"
-function check_daily_weges(){
+function getHours(){
 result="$( check_attendance $(()) )"
-case $result in 
-1)
-	total_weges=$((20*8))
-	echo $total_weges ;;
-2)
-	total_weges=$((20*4))
-	echo $total_weges ;;
-esac
+if [ $result -eq 1 ]
+then
+	result=$((RANDOME%2))
+	case $result in 
+	1)
+		hour=8;
+		echo $hour ;;
+	0)
+		hour=4;
+		echo $hour ;;
+	esac
+fi
+}
+function check_daily_weges(){
+result="$( getHours $(()) )"
+	daily_weges=$((20*result))
+	echo $daily_weges 
+
 }
 #result="$( check_daily_weges $(()) )"
 function calculate_weges_for_month(){
-count=0
+day=0
+hour=0
+calhour=0
 total_sal=1
-while [ $count -le 20 ]
+while [ $day -le 20 ] || [ $hour -le 100 ]
 do
+	hour="$( getHours $(()) )"
+	 calhour=$(($calhour + hour))
 	result="$( check_daily_weges $(()) )"
 	total_sal=$(( $total_sal + result ))
-	((count++))
-	
+	((day++))
+
 done
 	echo "$total_sal"
 }
