@@ -1,4 +1,5 @@
-#!/bin/bash -x
+#!/bin/bash
+declare -A store
 echo "welcome to the employee weges"
 
 
@@ -40,24 +41,25 @@ function check_daily_weges(){
 
 
 function calculate_weges_for_month(){
-day=0
+day=1
 hour=0
 calhour=0
 total_sal=1
-while [ $day -lt 20 ] || [ $hour -lt 100 ]
+while [ $day -le 20 ] || [ $hour -lt 100 ]
 do
 	hour="$( getHours $(()) )"
 	calhour=$(($calhour + hour))
 	result="$( check_daily_weges $(()) )"
 	total_sal=$(( $total_sal + result ))
-	store[day]=$result
-	((day++))
+	store[$day]=$result
 	if [ $day -eq 20 ]
 	then
 		break;
 	fi
+	((day++))
 done
-	echo "$total_sal"
-	echo ${store[@]}
+	echo "total monthly sal $total_sal"
+	echo " days ${!store[@]}" 
+	echo " daily_weges ${store[@]}"
 }
 calculate_weges_for_month
